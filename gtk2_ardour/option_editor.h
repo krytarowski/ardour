@@ -648,7 +648,7 @@ public:
 };
 
 /** The OptionEditor dialog base class */
-class OptionEditor : public ArdourWindow
+class OptionEditor : public Gtk::VBox, public ARDOUR::SessionHandlePtr
 {
 public:
 	OptionEditor (PBD::Configuration *, std::string const &);

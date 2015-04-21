@@ -40,8 +40,6 @@
 #include "ardour/types.h"
 #include "ardour/session_handle.h"
 
-#include "gtkmm2ext/visibility_tracker.h"
-
 #include "enums.h"
 #include "mixer_actor.h"
 
@@ -55,12 +53,17 @@ class PluginSelector;
 class MixerGroupTabs;
 class MonitorSection;
 
-class Mixer_UI : public Gtk::Window, public PBD::ScopedConnectionList, public ARDOUR::SessionHandlePtr, public MixerActor, public Gtkmm2ext::VisibilityTracker
+class Mixer_UI : public Gtk::VBox, public PBD::ScopedConnectionList, public ARDOUR::SessionHandlePtr, public MixerActor
 {
   public:
 	static Mixer_UI* instance();
 	~Mixer_UI();
 
+	Gtk::Window* own_window() const { return _parent_window; }
+	Gtk::Notebook* use_own_window();
+
+	bool visible() const { return _visible; }
+	
 	void set_session (ARDOUR::Session *);
 	void track_editor_selection ();
 
@@ -99,6 +102,7 @@ class Mixer_UI : public Gtk::Window, public PBD::ScopedConnectionList, public AR
 	Mixer_UI ();
 	static Mixer_UI* _instance;
 
+	Gtk::Window*                            _parent_window;
 	bool					_visible;
 
 	Gtk::HBox				global_hpacker;
@@ -291,6 +295,8 @@ class Mixer_UI : public Gtk::Window, public PBD::ScopedConnectionList, public AR
 
 	void monitor_section_going_away ();
 
+	void create_own_window ();
+	
 	/// true if we are in fullscreen mode
 	bool _maximised;
 };
