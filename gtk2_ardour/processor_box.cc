@@ -1817,7 +1817,7 @@ ProcessorBox::maybe_add_processor_to_ui_list (boost::weak_ptr<Processor> w)
 	const XMLNode* ui_xml = _session->extra_xml (X_("UI"));
 
 	if (ui_xml) {
-		wp->set_state (*ui_xml);
+		wp->set_state (*ui_xml, 0);
 	}
 
         void* existing_ui = p->get_ui ();
@@ -3109,7 +3109,7 @@ ProcessorWindowProxy::session_handle()
 }
 
 XMLNode&
-ProcessorWindowProxy::get_state () const
+ProcessorWindowProxy::get_state ()
 {
 	XMLNode *node;
 	node = &ProxyBase::get_state();
@@ -3117,8 +3117,8 @@ ProcessorWindowProxy::get_state () const
 	return *node;
 }
 
-void
-ProcessorWindowProxy::set_state (const XMLNode& node)
+int
+ProcessorWindowProxy::set_state (const XMLNode& node, int /*version*/)
 {
 	XMLNodeList children = node.children ();
 	XMLNodeList::const_iterator i = children.begin ();
@@ -3137,7 +3137,7 @@ ProcessorWindowProxy::set_state (const XMLNode& node)
 		}
 	}
 
-	ProxyBase::set_state(node);
+	return ProxyBase::set_state (node, 0);
 }
 
 Gtk::Window*

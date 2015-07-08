@@ -428,7 +428,7 @@ MonitorSection::MonitorSection (Session* s)
 	/* if torn off, make this a normal window */
 	_tearoff->tearoff_window().set_type_hint (Gdk::WINDOW_TYPE_HINT_NORMAL);
 	_tearoff->tearoff_window().set_title (X_("Monitor"));
-	_tearoff->tearoff_window().signal_key_press_event().connect (sigc::ptr_fun (forward_key_press), false);
+	_tearoff->tearoff_window().signal_key_press_event().connect (sigc::bind (sigc::ptr_fun (relay_key_press), (Gtk::Window*) 0), false);
 
 	update_output_display();
 

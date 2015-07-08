@@ -1861,6 +1861,7 @@ private:
 
 RCOptionEditor::RCOptionEditor ()
 	: OptionEditor (Config, string_compose (_("%1 Preferences"), PROGRAM_NAME))
+	, Tabbable (*this, _("Preferences"))
         , _rc_config (Config)
 	, _mixer_strip_visibility ("mixer-element-visibility")
 {
@@ -1972,6 +1973,7 @@ RCOptionEditor::RCOptionEditor ()
 
 	/* TRANSPORT */
 
+	add_option (_("Transport"), new OptionEditorHeading (S_("Playhead Behaviour")));
 	add_option (_("Transport"), new OptionEditorHeading (S_("Transport Options")));
 
 	BoolOption* tsf;
