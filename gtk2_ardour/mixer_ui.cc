@@ -103,6 +103,8 @@ Mixer_UI::Mixer_UI ()
 {
 	Route::SyncOrderKeys.connect (*this, invalidator (*this), boost::bind (&Mixer_UI::sync_treeview_from_order_keys, this), gui_context());
 
+	_content.set_data ("ardour-bindings", &bindings);
+	
 	scroller.set_can_default (true);
 	// set_default (scroller);
 
@@ -1654,35 +1656,6 @@ Mixer_UI::scroll_right ()
 }
 
 bool
-Mixer_UI::on_key_press_event (GdkEventKey* ev)
-{
-	KeyboardKey k (ev->state, ev->keyval);
-	
-	if (bindings.activate (k, Bindings::Press)) {
-		return true;
-	}
-	
-	/* send it to the main window, since our own bindings didn't
-	 * handle it
-	 */
-	return relay_key_press (ev);
-}
-
-bool
-Mixer_UI::on_key_release_event (GdkEventKey* ev)
-{
-	KeyboardKey k (ev->state, ev->keyval);
-
-	if (bindings.activate (k, Bindings::Release)) {
-		return true;
-	}
-	
-        /* don't forward releases */
-
-        return true;
-}
-
-bool
 Mixer_UI::on_scroll_event (GdkEventScroll* ev)
 {
 	switch (ev->direction) {
@@ -1943,6 +1916,8 @@ Mixer_UI::use_own_window (bool and_fill_it)
 	if (win && new_window) {
 		win->set_name ("MixerWindow");
 		ARDOUR_UI::instance()->setup_toplevel_window (*win, _("Mixer"), this);
+		win->signal_scroll_event().connect (sigc::mem_fun (*this, &Mixer_UI::on_scroll_event), false);
+		win->set_data ("ardour-bindings", &bindings);
 		update_title ();
 	}
 	
