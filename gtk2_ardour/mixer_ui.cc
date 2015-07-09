@@ -1560,21 +1560,22 @@ Mixer_UI::set_state (const XMLNode& node, int version)
 XMLNode&
 Mixer_UI::get_state ()
 {
-	XMLNode& node (Tabbable::get_state ());
+	XMLNode* node = new XMLNode (X_("Mixer"));
 	char buf[128];
+
+	node->add_child_nocopy (Tabbable::get_state());
 	
 	snprintf(buf,sizeof(buf), "%d",gtk_paned_get_position (const_cast<GtkPaned*>(static_cast<const Paned*>(&rhs_pane1)->gobj())));
-	node.add_property(X_("mixer_rhs_pane1_pos"), string(buf));
+	node->add_property(X_("mixer_rhs_pane1_pos"), string(buf));
 	snprintf(buf,sizeof(buf), "%d",gtk_paned_get_position (const_cast<GtkPaned*>(static_cast<const Paned*>(&list_hpane)->gobj())));
-	node.add_property(X_("mixer_list_hpane_pos"), string(buf));
+	node->add_property(X_("mixer_list_hpane_pos"), string(buf));
 
-	node.add_property ("narrow-strips", _strip_width == Narrow ? "yes" : "no");
-	node.add_property ("show-mixer", _visible ? "yes" : "no");
-	node.add_property ("maximised", _maximised ? "yes" : "no");
+	node->add_property ("narrow-strips", _strip_width == Narrow ? "yes" : "no");
+	node->add_property ("show-mixer", _visible ? "yes" : "no");
+	node->add_property ("maximised", _maximised ? "yes" : "no");
 
-	return node;
+	return *node;
 }
-
 
 void
 Mixer_UI::pane_allocation_handler (Allocation&, Gtk::Paned* which)
@@ -1933,11 +1934,11 @@ Mixer_UI::restore_mixer_space ()
 }
 
 Gtk::Window*
-Mixer_UI::use_own_window ()
+Mixer_UI::use_own_window (bool and_fill_it)
 {
 	bool new_window = !own_window();
 	
-	Gtk::Window* win = Tabbable::use_own_window ();
+	Gtk::Window* win = Tabbable::use_own_window (and_fill_it);
 
 	if (win && new_window) {
 		win->set_name ("MixerWindow");
