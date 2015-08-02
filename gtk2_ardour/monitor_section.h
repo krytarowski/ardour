@@ -21,6 +21,7 @@
 #include <gtkmm/table.h>
 
 #include "gtkmm2ext/bindable_button.h"
+#include "gtkmm2ext/bindings.h"
 
 #include "ardour_button.h"
 #include "ardour_knob.h"
@@ -39,7 +40,7 @@ class VolumeController;
 
 class MonitorSection : public RouteUI
 {
-	public:
+  public:
 	MonitorSection (ARDOUR::Session*);
 	~MonitorSection ();
 
@@ -159,4 +160,7 @@ class MonitorSection : public RouteUI
 
 	void assign_controllables ();
 	void port_connected_or_disconnected (boost::weak_ptr<ARDOUR::Port>, boost::weak_ptr<ARDOUR::Port>);
+
+  private:
+	Gtkmm2ext::ActionMap myactions;
 };
