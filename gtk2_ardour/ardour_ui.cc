@@ -5269,6 +5269,6 @@ void
 ARDOUR_UI::load_bindings ()
 {
 	global_bindings.set_action_map (global_actions);
-	global_bindings.load ("global");
+	global_bindings.load (X_("global"));
 }
 
