@@ -160,7 +160,4 @@ class MonitorSection : public RouteUI
 
 	void assign_controllables ();
 	void port_connected_or_disconnected (boost::weak_ptr<ARDOUR::Port>, boost::weak_ptr<ARDOUR::Port>);
-
-  private:
-	Gtkmm2ext::ActionMap myactions;
 };
