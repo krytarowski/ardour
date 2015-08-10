@@ -103,7 +103,9 @@ Mixer_UI::Mixer_UI ()
 {
 	Route::SyncOrderKeys.connect (*this, invalidator (*this), boost::bind (&Mixer_UI::sync_treeview_from_order_keys, this), gui_context());
 
-	_content.set_data ("ardour-bindings", &bindings);
+	/* bindings was already set in MixerActor constructor */
+
+	_content.set_data ("ardour-bindings", bindings);
 	
 	scroller.set_can_default (true);
 	// set_default (scroller);
@@ -1917,7 +1919,7 @@ Mixer_UI::use_own_window (bool and_fill_it)
 		win->set_name ("MixerWindow");
 		ARDOUR_UI::instance()->setup_toplevel_window (*win, _("Mixer"), this);
 		win->signal_scroll_event().connect (sigc::mem_fun (*this, &Mixer_UI::on_scroll_event), false);
-		win->set_data ("ardour-bindings", &bindings);
+		win->set_data ("ardour-bindings", bindings);
 		update_title ();
 	}
 	
