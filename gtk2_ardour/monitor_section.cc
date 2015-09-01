@@ -81,6 +81,7 @@ MonitorSection::MonitorSection (Session* s)
 	, exclusive_solo_button (ArdourButton::led_default_elements)
 	, solo_mute_override_button (ArdourButton::led_default_elements)
 	, _inhibit_solo_model_update (false)
+	, myactions (X_("monitor section"))
 	, bindings (0)
 {
 
