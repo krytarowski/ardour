@@ -5223,7 +5223,7 @@ ARDOUR_UI::key_press_focus_accelerator_handler (Gtk::Window& window, GdkEventKey
 
 		DEBUG_TRACE (DEBUG::Accelerators, "\tnot yet handled, try global bindings\n");
 		
-		if (global_bindings->activate (k, Bindings::Press)) {
+		if (global_bindings && global_bindings->activate (k, Bindings::Press)) {
 			DEBUG_TRACE (DEBUG::Accelerators, "\t\thandled\n");
 			return true;
 		}
@@ -5263,7 +5263,7 @@ ARDOUR_UI::key_press_focus_accelerator_handler (Gtk::Window& window, GdkEventKey
 		
 		DEBUG_TRACE (DEBUG::Accelerators, "\tnot yet handled, try global bindings\n");
 		
-		if (global_bindings->activate (k, Bindings::Press)) {
+		if (global_bindings && global_bindings->activate (k, Bindings::Press)) {
 			DEBUG_TRACE (DEBUG::Accelerators, "\t\thandled\n");
 			return true;
 		}
