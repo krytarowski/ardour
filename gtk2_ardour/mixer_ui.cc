@@ -106,7 +106,7 @@ Mixer_UI::Mixer_UI ()
 	/* bindings was already set in MixerActor constructor */
 
 	_content.set_data ("ardour-bindings", bindings);
-	
+
 	scroller.set_can_default (true);
 	// set_default (scroller);
 
@@ -223,7 +223,7 @@ Mixer_UI::Mixer_UI ()
 
 	_content.show ();
 	_content.set_name ("MixerWindow");
-	
+
 	global_hpacker.show();
 	scroller.show();
 	scroller_base.show();
@@ -868,16 +868,16 @@ void
 Mixer_UI::show_window ()
 {
 	Tabbable::show_window ();
-		
+
 	/* show/hide group tabs as required */
 	parameter_changed ("show-group-tabs");
-	
+
 	/* now reset each strips width so the right widgets are shown */
 	MixerStrip* ms;
-	
+
 	TreeModel::Children rows = track_model->children();
 	TreeModel::Children::iterator ri;
-	
+
 	for (ri = rows.begin(); ri != rows.end(); ++ri) {
 		ms = (*ri)[track_columns.strip];
 		ms->set_width_enum (ms->get_width_enum (), ms->width_owner());
@@ -1568,7 +1568,7 @@ Mixer_UI::get_state ()
 	char buf[128];
 
 	node->add_child_nocopy (Tabbable::get_state());
-	
+
 	snprintf(buf,sizeof(buf), "%d",gtk_paned_get_position (const_cast<GtkPaned*>(static_cast<const Paned*>(&rhs_pane1)->gobj())));
 	node->add_property(X_("mixer_rhs_pane1_pos"), string(buf));
 	snprintf(buf,sizeof(buf), "%d",gtk_paned_get_position (const_cast<GtkPaned*>(static_cast<const Paned*>(&list_hpane)->gobj())));
@@ -1791,7 +1791,7 @@ Mixer_UI::update_title ()
 	if (!own_window()) {
 		return;
 	}
-	
+
 	if (_session) {
 		string n;
 
@@ -1804,14 +1804,14 @@ Mixer_UI::update_title ()
 		if (_session->dirty ()) {
 			n = "*" + n;
 		}
-		
+
 		WindowTitle title (n);
 		title += S_("Window|Mixer");
 		title += Glib::get_application_name ();
 		own_window()->set_title (title.get_string());
-		
+
 	} else {
-		
+
 		WindowTitle title (S_("Window|Mixer"));
 		title += Glib::get_application_name ();
 		own_window()->set_title (title.get_string());
@@ -1884,7 +1884,7 @@ Mixer_UI::maximise_mixer_space ()
 	if (!own_window()) {
 		return;
 	}
-	
+
 	if (_maximised) {
 		return;
 	}
@@ -1899,7 +1899,7 @@ Mixer_UI::restore_mixer_space ()
 	if (!own_window()) {
 		return;
 	}
-	
+
 	if (!_maximised) {
 		return;
 	}
@@ -1912,7 +1912,7 @@ Gtk::Window*
 Mixer_UI::use_own_window (bool and_fill_it)
 {
 	bool new_window = !own_window();
-	
+
 	Gtk::Window* win = Tabbable::use_own_window (and_fill_it);
 
 	if (win && new_window) {
@@ -1922,8 +1922,8 @@ Mixer_UI::use_own_window (bool and_fill_it)
 		win->set_data ("ardour-bindings", bindings);
 		update_title ();
 	}
-	
+
 	return win;
 }
-		
-	
+
+

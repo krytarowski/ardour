@@ -3219,7 +3219,7 @@ Gtk::Window*
 RCOptionEditor::use_own_window (bool and_fill_it)
 {
 	bool new_window = !own_window();
-	
+
 	Gtk::Window* win = Tabbable::use_own_window (and_fill_it);
 
 	if (win && new_window) {

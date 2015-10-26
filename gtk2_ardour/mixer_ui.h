@@ -63,7 +63,7 @@ class Mixer_UI : public Gtkmm2ext::Tabbable, public PBD::ScopedConnectionList, p
 
 	Gtk::Window* use_own_window (bool and_fill_it);
 	void show_window ();
-	
+
 	void set_session (ARDOUR::Session *);
 	void track_editor_selection ();
 
@@ -92,7 +92,7 @@ class Mixer_UI : public Gtkmm2ext::Tabbable, public PBD::ScopedConnectionList, p
 	void select_none ();
 
 	bool window_not_visible () const;
-	
+
   protected:
 	void set_route_targets_for_operation ();
 
@@ -289,7 +289,7 @@ class Mixer_UI : public Gtkmm2ext::Tabbable, public PBD::ScopedConnectionList, p
 	void monitor_section_going_away ();
 
 	void create_own_window ();
-	
+
 	/// true if we are in fullscreen mode
 	bool _maximised;
 };
