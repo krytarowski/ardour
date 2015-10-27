@@ -199,7 +199,7 @@ Mixer_UI::Mixer_UI ()
 	list_vpacker.pack_start (rhs_pane1, true, true);
 
 	global_hpacker.pack_start (scroller, true, true);
-#ifdef GTKOSX
+#ifdef __APPLE__
 	/* current gtk-quartz has dirty updates on borders like this one */
 	global_hpacker.pack_start (out_packer, false, false, 0);
 #else
@@ -1109,7 +1109,7 @@ Mixer_UI::strip_width_changed ()
 {
 	_group_tabs->set_dirty ();
 
-#ifdef GTKOSX
+#ifdef __APPLE__
 	TreeModel::Children rows = track_model->children();
 	TreeModel::Children::iterator i;
 	long order;
@@ -1248,7 +1248,7 @@ Mixer_UI::group_display_button_press (GdkEventButton* ev)
 		if (Keyboard::is_edit_event (ev)) {
 			if (group) {
 				// edit_route_group (group);
-#ifdef GTKOSX
+#ifdef __APPLE__
 				group_display.queue_draw();
 #endif
 				return true;
@@ -1260,7 +1260,7 @@ Mixer_UI::group_display_button_press (GdkEventButton* ev)
 	{
 		bool visible = (*iter)[group_columns.visible];
 		(*iter)[group_columns.visible] = !visible;
-#ifdef GTKOSX
+#ifdef __APPLE__
 		group_display.queue_draw();
 #endif
 		return true;
